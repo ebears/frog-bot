@@ -71,15 +71,14 @@ python bot.py
 ### With Docker
 
 ```bash
-docker compose up --build   # First run
-docker compose up -d        # Run in background
-docker compose down         # Stop the bot
-docker compose logs -f bot  # View live logs
+docker compose up
 ```
+
+> **Note:** `docker-compose.yml` is configured to pull the pre-built image from GitHub Container Registry. To use local code changes instead, swap `image:` for `build: .` in `docker-compose.yml`.
 
 ## Syncing Slash Commands
 
-Once the bot is running, use the following prefix commands to register slash commands:
+Once the bot is running, use the following prefix commands to register slash commands with Discord. This only needs to be done after adding or modifying commands.
 
 | Command | Description |
 | --- | --- |
@@ -117,15 +116,3 @@ Use `!sync` during development and `!sync global` when deploying to production.
 3. Add a `setup()` function at the bottom
 4. Register it in `bot.py` by adding `await bot.load_extension("cogs.fun")`
 5. Restart the bot and run `!sync`
-
-## Maintenance Scripts
-
-### `scripts/clear_global.py`
-
-Clears all globally registered slash commands from Discord. Useful if duplicate commands appear in the Discord UI after switching between global and guild syncing.
-
-```bash
-python scripts/clear_global.py
-```
-
-Run once, wait a minute, then restart the bot. Only needs to be run when duplicates appear.
