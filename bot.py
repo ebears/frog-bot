@@ -12,10 +12,15 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+
 # Load the guild ID from .env and create a Discord object from it
 # int() is necessary because os.getenv() always returns a string
-TEST_GUILD = discord.Object(id=int(os.getenv("GUILD_ID")))
-ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+TEST_GUILD = (
+    discord.Object(id=int(os.getenv("GUILD_ID")))
+    if ENVIRONMENT == "development"
+    else None
+)
 
 async def setup_hook():
     # Load cogs
@@ -28,6 +33,10 @@ async def setup_hook():
         synced = await bot.tree.sync()
         print(f"Synced {len(synced)} commands globally.")
     else:
+        if TEST_GUILD is None:
+            print("Error: GUILD_ID is not set. Please set it in your .env file.")
+            await bot.close()
+            return
         bot.tree.copy_global_to(guild=TEST_GUILD)
         synced = await bot.tree.sync(guild=TEST_GUILD)
         print(f"Synced {len(synced)} commands to guild.")
