@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 intents = discord.Intents.default()
@@ -34,6 +35,8 @@ async def sync(ctx: commands.Context, scope: str = "guild"):
 async def main():
     async with bot:
         await bot.load_extension("cogs.general")
+        await bot.load_extension("cogs.moderation")
         await bot.start(os.getenv("DISCORD_TOKEN"))
+
 
 asyncio.run(main())
