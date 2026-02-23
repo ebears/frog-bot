@@ -12,8 +12,8 @@ A Discord bot built with Python and discord.py, featuring slash commands and a m
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-cd YOUR_REPO
+git clone https://github.com/ebears/frog-bot.git
+cd frog-bot
 ```
 
 ### 2. Create a virtual environment and install dependencies
