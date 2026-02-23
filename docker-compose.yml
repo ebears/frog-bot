@@ -1,0 +1,6 @@
+services:
+  bot:
+    image: ghcr.io/ebears/frog-bot:latest
+    restart: unless-stopped
+    env_file:
+      - .env
