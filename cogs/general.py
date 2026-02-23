@@ -8,10 +8,6 @@ class General(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print(f"Logged in as {self.bot.user} (ID: {self.bot.user.id})")
-
     @app_commands.command(name="ping", description="Check the bot's latency")
     async def ping(self, interaction: discord.Interaction):
         latency = round(self.bot.latency * 1000)
