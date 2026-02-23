@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    # Don't run if just the README is being updated
+    paths-ignore:
+      - 'README.md'
 
 jobs:
   build:
