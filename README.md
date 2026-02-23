@@ -56,6 +56,7 @@ And the following permissions:
 - `Send Messages`
 - `Read Messages / View Channels`
 - `Embed Links`
+- `Manage Messages`
 
 Open the generated URL in your browser and add the bot to your server.
 
@@ -89,6 +90,8 @@ Use `!sync` during development and `!sync global` when deploying to production.
 
 ## Available Commands
 
+### General
+
 | Command | Description |
 | --- | --- |
 | `/ping` | Check the bot's latency |
@@ -96,10 +99,33 @@ Use `!sync` during development and `!sync global` when deploying to production.
 | `/info` | Display info about the server |
 | `/say` | Make the bot repeat a message |
 
+### Moderation
+
+| Command | Description | Required Permission |
+| --- | --- | --- |
+| `/nuke` | Delete messages in a channel, optionally filtered by a phrase | Manage Messages |
+
+#### `/nuke` options
+
+- `phrase` — if provided, only messages containing this phrase will be deleted
+- `limit` — how many messages to search through (default: 100, max: 500)
+
 ## Adding New Cogs
 
-1. Create a new file in the `cogs/` directory, e.g. `cogs/moderation.py`
+1. Create a new file in the `cogs/` directory, e.g. `cogs/fun.py`
 2. Define a class that inherits from `commands.Cog`
 3. Add a `setup()` function at the bottom
-4. Register it in `bot.py` by adding `await bot.load_extension("cogs.moderation")`
+4. Register it in `bot.py` by adding `await bot.load_extension("cogs.fun")`
 5. Restart the bot and run `!sync`
+
+## Maintenance Scripts
+
+### `scripts/clear_global.py`
+
+Clears all globally registered slash commands from Discord. Useful if duplicate commands appear in the Discord UI after switching between global and guild syncing.
+
+```bash
+python scripts/clear_global.py
+```
+
+Run once, wait a minute, then restart the bot. Only needs to be run when duplicates appear.
