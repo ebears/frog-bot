@@ -2,6 +2,7 @@ import os
 import asyncio
 import discord
 from discord.ext import commands
+from datetime import datetime, timezone
 from dotenv import load_dotenv
 
 
@@ -25,6 +26,7 @@ TEST_GUILD = (
 async def setup_hook():
     # Load cogs
     await bot.load_extension("cogs.general")
+    await bot.load_extension("cogs.info")
     await bot.load_extension("cogs.moderation")
 
     # Sync commands once on startup
@@ -45,6 +47,8 @@ bot.setup_hook = setup_hook
 
 @bot.event
 async def on_ready():
+    # Set start time for the uptime command
+    bot.start_time = datetime.now(timezone.utc)
     print(f"Logged in as {bot.user} (ID: {bot.user.id})")
 
 @bot.event
