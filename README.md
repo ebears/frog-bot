@@ -88,10 +88,17 @@ Slash commands are synced with Discord automatically on startup based on the `EN
 
 | Command | Description |
 | --- | --- |
-| `/ping` | Check the bot's latency |
 | `/hello` | Get a greeting from the bot |
-| `/info` | Display info about the server |
 | `/say` | Make the bot repeat a message |
+
+### Info
+
+| Command | Description |
+| --- | --- |
+| `/ping` | Check the bot's latency |
+| `/serverinfo` | Display info about the server |
+| `/uptime` | Show how long the bot has been running |
+| `/userinfo` | Display detailed info about a user |
 
 ### Moderation
 
