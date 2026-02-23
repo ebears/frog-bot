@@ -10,5 +10,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the code
 COPY . .
 
+# Disable Python's output buffering, forwarding logs to Docker
+ENV PYTHONUNBUFFERED=1
+
 # Run the bot
 CMD ["python", "bot.py"]
