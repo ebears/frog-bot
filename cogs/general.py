@@ -10,9 +10,6 @@ class General(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        # Sync slash commands with Discord globally
-        # This registers them so they show up in the / menu
-        await self.bot.tree.sync()
         print(f"Logged in as {self.bot.user} (ID: {self.bot.user.id})")
 
     @app_commands.command(name="ping", description="Check the bot's latency")
