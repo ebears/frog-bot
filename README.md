@@ -37,12 +37,14 @@ Create a `.env` file in the project root:
 ```bash
 DISCORD_TOKEN=your_bot_token_here
 GUILD_ID=your_test_server_id_here
+ENVIRONMENT=development
 ```
 
-To get these values:
+To determine these values:
 
 - **DISCORD_TOKEN**: Go to the [Discord Developer Portal](https://discord.com/developers/applications) → Your App → Bot → Reset Token
 - **GUILD_ID**: Enable Developer Mode in Discord (Settings → Advanced), then right-click your server and click **Copy Server ID**
+- **ENVIRONMENT**: Set to `development` to sync commands to your test server on startup, or `production` to sync globally
 
 ### 4. Invite the bot to your server
 
@@ -76,16 +78,9 @@ docker compose up
 
 > **Note:** `docker-compose.yml` is configured to pull the pre-built image from GitHub Container Registry. To use local code changes instead, swap `image:` for `build: .` in `docker-compose.yml`.
 
-## Syncing Slash Commands
+## Slash Commands
 
-Once the bot is running, use the following prefix commands to register slash commands with Discord. This only needs to be done after adding or modifying commands.
-
-| Command | Description |
-| --- | --- |
-| `!sync` | Syncs commands to your test server (instant) |
-| `!sync global` | Syncs commands globally (up to 1 hour to propagate) |
-
-Use `!sync` during development and `!sync global` when deploying to production.
+Slash commands are synced with Discord automatically on startup based on the `ENVIRONMENT` variable — no manual syncing needed. In `development` mode, commands sync instantly to your test server. In `production` mode, commands sync globally, which can take **up to an hour** to propagate.
 
 ## Available Commands
 
@@ -114,5 +109,5 @@ Use `!sync` during development and `!sync global` when deploying to production.
 1. Create a new file in the `cogs/` directory, e.g. `cogs/fun.py`
 2. Define a class that inherits from `commands.Cog`
 3. Add a `setup()` function at the bottom
-4. Register it in `bot.py` by adding `await bot.load_extension("cogs.fun")`
-5. Restart the bot and run `!sync`
+4. Register it in `bot.py` by adding `await bot.load_extension("cogs.fun")` inside `setup_hook`
+5. Restart the bot — commands will sync automatically
